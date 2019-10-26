@@ -1,11 +1,11 @@
-package com.maccommerce.login;
+package com.maccommerce.authservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
-public class LoginServiceApplication {
+public class AuthServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LoginServiceApplication.class, args);
+		SpringApplication.run(AuthServiceApplication.class, args);
 	}
 }

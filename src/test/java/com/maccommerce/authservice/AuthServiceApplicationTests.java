@@ -1,4 +1,4 @@
-package br.com.maccommerce.authservice;
+package com.maccommerce.authservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

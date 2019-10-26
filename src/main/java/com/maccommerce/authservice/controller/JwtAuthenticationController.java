@@ -1,4 +1,4 @@
-package com.maccommerce.login.controller;
+package com.maccommerce.authservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.maccommerce.login.bean.DAOUser;
-import com.maccommerce.login.bean.JwtRequest;
-import com.maccommerce.login.bean.JwtResponse;
-import com.maccommerce.login.bean.UserDTO;
-import com.maccommerce.login.jwt.config.JwtTokenUtil;
-import com.maccommerce.login.service.JwtUserDetailsService;
+import com.maccommerce.authservice.entity.DAOUser;
+import com.maccommerce.authservice.entity.JwtRequest;
+import com.maccommerce.authservice.entity.JwtResponse;
+import com.maccommerce.authservice.entity.UserDTO;
+import com.maccommerce.authservice.jwt.config.JwtTokenUtil;
+import com.maccommerce.authservice.service.JwtUserDetailsService;
 
 @RestController
 @CrossOrigin

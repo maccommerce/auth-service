@@ -1,4 +1,4 @@
-package com.maccommerce.login.bean;
+package com.maccommerce.authservice.entity;
 
 public class UserDTO {
 	private String username;
