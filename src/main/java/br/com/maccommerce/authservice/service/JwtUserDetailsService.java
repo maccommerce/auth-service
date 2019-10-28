@@ -1,4 +1,4 @@
-package com.maccommerce.authservice.service;
+package br.com.maccommerce.authservice.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,11 +16,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.maccommerce.authservice.entity.DAOUser;
-import com.maccommerce.authservice.entity.Role;
-import com.maccommerce.authservice.entity.UserDTO;
-import com.maccommerce.authservice.repository.RoleRepository;
-import com.maccommerce.authservice.repository.UserRepository;
+import br.com.maccommerce.authservice.entity.DAOUser;
+import br.com.maccommerce.authservice.entity.Role;
+import br.com.maccommerce.authservice.entity.UserDTO;
+import br.com.maccommerce.authservice.repository.RoleRepository;
+import br.com.maccommerce.authservice.repository.UserRepository;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {

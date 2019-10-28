@@ -1,4 +1,4 @@
-package com.maccommerce.authservice.entity;
+package br.com.maccommerce.authservice.entity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,8 +34,9 @@ public class Role {
 				mappedBy = "roles")
 	private Set<DAOUser> users = new HashSet<>();
 
-	public Role(String role) {
+	public Role(int id, String role) {
 		super();
+		this.id=id;
 		this.role = role;
 	}
 	

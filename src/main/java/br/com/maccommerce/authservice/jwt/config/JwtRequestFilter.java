@@ -1,4 +1,4 @@
-package com.maccommerce.authservice.jwt.config;
+package br.com.maccommerce.authservice.jwt.config;
 
 import java.io.IOException;
 
@@ -15,8 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.maccommerce.authservice.service.JwtUserDetailsService;
-
+import br.com.maccommerce.authservice.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 
 @Component

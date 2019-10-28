@@ -1,4 +1,4 @@
-package com.maccommerce.authservice.entity;
+package br.com.maccommerce.authservice.entity;
 
 import java.io.Serializable;
 

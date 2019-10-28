@@ -1,4 +1,4 @@
-package com.maccommerce.authservice.jwt.config;
+package br.com.maccommerce.authservice.jwt.config;
 
 import java.io.Serializable;
 import java.util.Date;
