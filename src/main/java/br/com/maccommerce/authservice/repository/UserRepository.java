@@ -1,9 +1,9 @@
-package com.maccommerce.authservice.repository;
+package br.com.maccommerce.authservice.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.maccommerce.authservice.entity.DAOUser;
+import br.com.maccommerce.authservice.entity.DAOUser;
 
 @Repository
 public interface UserRepository extends JpaRepository<DAOUser, Integer> {

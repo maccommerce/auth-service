@@ -1,4 +1,4 @@
-package com.maccommerce.authservice.jwt.config;
+package br.com.maccommerce.authservice.jwt.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

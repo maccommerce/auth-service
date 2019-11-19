@@ -1,4 +1,4 @@
-package com.maccommerce.authservice;
+package br.com.maccommerce.authservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

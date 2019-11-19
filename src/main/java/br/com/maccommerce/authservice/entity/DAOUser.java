@@ -1,4 +1,4 @@
-package com.maccommerce.authservice.entity;
+package br.com.maccommerce.authservice.entity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +23,9 @@ public class DAOUser {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Integer id;
+	
+
 	@Column(unique = true)
 	private String username;
 	@Column
@@ -31,7 +33,7 @@ public class DAOUser {
 	private String password;
 
 	@JsonIgnore
-    @ManyToMany(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name = "user_roles",
     joinColumns = { @JoinColumn(name = "user_id")},
     inverseJoinColumns = { @JoinColumn(name = "role_id") })
@@ -44,7 +46,15 @@ public class DAOUser {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+	
+	public Integer getId() {
+		return id;
+	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
