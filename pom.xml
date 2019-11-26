@@ -12,10 +12,12 @@
 	<artifactId>auth-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>auth-service</name>
-	<description>Registry and Authentication service JWT</description>
+	<description>Maccommerce's authentication service</description>
 
 	<properties>
 		<java.version>1.8</java.version>
+		<junit-jupiter.version>5.5.2</junit-jupiter.version>
+		<junit-platform.version>1.5.2</junit-platform.version>
 	</properties>
 
 	<dependencies>
@@ -47,6 +49,10 @@
 					<groupId>org.junit.vintage</groupId>
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -56,7 +62,6 @@
 		<dependency>
 		    <groupId>org.postgresql</groupId>
 		    <artifactId>postgresql</artifactId>
-		    <version>9.4.1212</version>
 		</dependency>
 		<dependency>
 		    <groupId>io.springfox</groupId>
@@ -68,9 +73,28 @@
 		    <artifactId>springfox-swagger-ui</artifactId>
 		    <version>2.9.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit-jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit-jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<version>${junit-platform.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<finalName>${project.name}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
