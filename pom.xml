@@ -16,6 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<flyway.version>6.0.0</flyway.version>
 		<junit-jupiter.version>5.5.2</junit-jupiter.version>
 		<junit-platform.version>1.5.2</junit-platform.version>
 	</properties>
@@ -62,6 +63,20 @@
 		<dependency>
 		    <groupId>org.postgresql</groupId>
 		    <artifactId>postgresql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>${flyway.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb.flyway-test-extensions</groupId>
+			<artifactId>flyway-spring5-test</artifactId>
+			<version>${flyway.version}</version>
 		</dependency>
 		<dependency>
 		    <groupId>io.springfox</groupId>
