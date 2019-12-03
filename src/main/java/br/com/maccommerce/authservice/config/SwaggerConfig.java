@@ -1,4 +1,4 @@
-package br.com.maccommerce.authservice.swagger;
+package br.com.maccommerce.authservice.config;
 
 import org.springframework.context.annotation.Configuration;
 

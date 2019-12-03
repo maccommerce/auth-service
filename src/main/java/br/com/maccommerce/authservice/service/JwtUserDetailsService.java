@@ -1,37 +1,35 @@
 package br.com.maccommerce.authservice.service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.Set;
-
-import javax.management.relation.RoleNotFoundException;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.maccommerce.authservice.entity.Role;
+import br.com.maccommerce.authservice.entity.User;
+import br.com.maccommerce.authservice.entity.UserDTO;
+import br.com.maccommerce.authservice.repository.RoleRepository;
+import br.com.maccommerce.authservice.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.maccommerce.authservice.entity.User;
-import br.com.maccommerce.authservice.entity.Role;
-import br.com.maccommerce.authservice.entity.UserDTO;
-import br.com.maccommerce.authservice.repository.RoleRepository;
-import br.com.maccommerce.authservice.repository.UserRepository;
+import javax.management.relation.RoleNotFoundException;
+import java.util.*;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 	
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private RoleRepository roleRepository;
+	private final UserRepository userRepository;
+	private final RoleRepository roleRepository;
+	private final PasswordEncoder bcryptEncoder;
 
-	@Autowired
-	private PasswordEncoder bcryptEncoder;
+	public JwtUserDetailsService(
+			UserRepository userRepository,
+			RoleRepository roleRepository,
+			PasswordEncoder bcryptEncoder
+	) {
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.bcryptEncoder = bcryptEncoder;
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
