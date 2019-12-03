@@ -1,51 +1,66 @@
 package br.com.maccommerce.authservice;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
+import br.com.maccommerce.authservice.entity.User;
+import br.com.maccommerce.authservice.entity.Role;
+import br.com.maccommerce.authservice.repository.RoleRepository;
+import br.com.maccommerce.authservice.repository.UserRepository;
+import org.flywaydb.core.Flyway;
+import org.flywaydb.test.annotation.FlywayTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import br.com.maccommerce.authservice.entity.DAOUser;
-import br.com.maccommerce.authservice.entity.Role;
-import br.com.maccommerce.authservice.repository.RoleRepository;
-import br.com.maccommerce.authservice.repository.UserRepository;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-@RunWith(SpringRunner.class)
+import static org.assertj.core.api.Assertions.assertThat;
+
+@FlywayTest
 @SpringBootTest
+@RunWith(SpringRunner.class)
 class AuthServiceApplicationTests {
 
-	@Test
-	void contextLoads() {
+	@Autowired private Flyway flyway;
+
+	@Autowired private RoleRepository roleRepository;
+	
+	@Autowired private UserRepository userRepository;
+
+	private static DatabaseMock databaseMock;
+
+	@BeforeAll static void beforeAll() throws IOException {
+		databaseMock = new DatabaseMock();
 	}
-	
-	@Autowired
-	private RoleRepository roleRepository;
-	
-	@Autowired
-	private UserRepository userRepository;
-	
+
+	@AfterAll static void afterAkk() throws IOException {
+		databaseMock.stopServer();
+	}
+
+	@BeforeEach void beforeEach() {
+		flyway.clean();
+		flyway.migrate();
+	}
+
 	public Set<Role> createRoleUser(){
-		Optional<Role> role = roleRepository.findById(1001);
-		Set<Role> roles = new HashSet<Role>();
-		roles.add(role.get());
+		Role role = roleRepository.getOne(1001);
+		Set<Role> roles = new HashSet<>();
+		roles.add(role);
 		return roles;
 	}
 	
-	@Test
-	public void testRoles() {
+	@Test public void testRoles() {
 		
 		List<Role> roles = roleRepository.findAll();
 		
-		List<Role> rolesValidas = new ArrayList<Role>();;
+		List<Role> rolesValidas = new ArrayList<>();
 		
 		Role roleAdm = new Role(1001, "ADMINISTRADOR");
 		rolesValidas.add(roleAdm);
@@ -67,21 +82,18 @@ class AuthServiceApplicationTests {
 
 	}
 	
-	@Test
-	public void registryShouldPersistData() {
+	@Test public void registryShouldPersistData() {
 				
-		DAOUser user = new DAOUser("userTest", "passTest", createRoleUser());
+		User user = new User("userTest", "passTest", createRoleUser());
 		
 		this.userRepository.save(user);
 		
 		assertThat(user.getId()).isNotNull();
 	}
-	
 
-	@Test
-	public void deleteShouldRemoveData() {
+	@Test public void deleteShouldRemoveData() {
 		
-		DAOUser user = new DAOUser("userTest1", "passTest", createRoleUser());
+		User user = new User("userTest1", "passTest", createRoleUser());
 		
 		this.userRepository.save(user);
 		this.userRepository.delete(user);
@@ -90,21 +102,20 @@ class AuthServiceApplicationTests {
 		
 	}
 	
-	@Test
-	public void updateShouldChangeAndPersistData() {
+	@Test public void updateShouldChangeAndPersistData() {
 		
-		DAOUser user = new DAOUser("userTest2", "passTest", createRoleUser());
+		User user = new User("userTest2", "passTest", createRoleUser());
 		
 		this.userRepository.save(user);
 		
 		user.setUsername("newName");
 		user.setPassword("newPass");
 		
-		DAOUser userChanged = this.userRepository.save(user);
+		User userChanged = this.userRepository.save(user);
 		
 		assertThat(userChanged.getUsername()).isEqualTo("newName");
 		assertThat(userChanged.getPassword()).isEqualTo("newPass");
-	
-		
+
 	}
+
 }
