@@ -1,7 +1,6 @@
 package br.com.maccommerce.authservice.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
@@ -16,7 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.maccommerce.authservice.entity.DAOUser;
+import br.com.maccommerce.authservice.entity.User;
 import br.com.maccommerce.authservice.entity.Role;
 import br.com.maccommerce.authservice.entity.UserDTO;
 import br.com.maccommerce.authservice.repository.RoleRepository;
@@ -36,7 +35,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		DAOUser user = userRepository.findByUsername(username);
+		User user = userRepository.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
@@ -44,11 +43,11 @@ public class JwtUserDetailsService implements UserDetailsService {
 				new ArrayList<>());
 	}
 	
-	public DAOUser save(UserDTO user, Integer idRole) throws Exception {
+	public User save(UserDTO user, Integer idRole) throws Exception {
 		if(userRepository.findByUsername(user.getUsername()) != null) {
 			throw new Exception("Login já existe");
 		}
-		DAOUser newUser = new DAOUser();
+		User newUser = new User();
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		Optional<Role> role = roleRepository.findById(idRole);
@@ -65,7 +64,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 	
 	
 	public String loadUserRolesByUsername(String username) throws UsernameNotFoundException {
-		DAOUser user = userRepository.findByUsername(username);
+		User user = userRepository.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("Usuario não encontrado: " + username);
 		}
