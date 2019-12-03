@@ -1,42 +1,39 @@
 package br.com.maccommerce.authservice.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.Set;
-
-import javax.management.relation.RoleNotFoundException;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.maccommerce.authservice.entity.Role;
+import br.com.maccommerce.authservice.entity.User;
+import br.com.maccommerce.authservice.entity.UserDTO;
+import br.com.maccommerce.authservice.repository.RoleRepository;
+import br.com.maccommerce.authservice.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.maccommerce.authservice.entity.DAOUser;
-import br.com.maccommerce.authservice.entity.Role;
-import br.com.maccommerce.authservice.entity.UserDTO;
-import br.com.maccommerce.authservice.repository.RoleRepository;
-import br.com.maccommerce.authservice.repository.UserRepository;
+import javax.management.relation.RoleNotFoundException;
+import java.util.*;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 	
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private RoleRepository roleRepository;
+	private final UserRepository userRepository;
+	private final RoleRepository roleRepository;
+	private final PasswordEncoder bcryptEncoder;
 
-	@Autowired
-	private PasswordEncoder bcryptEncoder;
+	public JwtUserDetailsService(
+			UserRepository userRepository,
+			RoleRepository roleRepository,
+			PasswordEncoder bcryptEncoder
+	) {
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.bcryptEncoder = bcryptEncoder;
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		DAOUser user = userRepository.findByUsername(username);
+		User user = userRepository.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
@@ -44,11 +41,11 @@ public class JwtUserDetailsService implements UserDetailsService {
 				new ArrayList<>());
 	}
 	
-	public DAOUser save(UserDTO user, Integer idRole) throws Exception {
+	public User save(UserDTO user, Integer idRole) throws Exception {
 		if(userRepository.findByUsername(user.getUsername()) != null) {
 			throw new Exception("Login já existe");
 		}
-		DAOUser newUser = new DAOUser();
+		User newUser = new User();
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		Optional<Role> role = roleRepository.findById(idRole);
@@ -65,7 +62,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 	
 	
 	public String loadUserRolesByUsername(String username) throws UsernameNotFoundException {
-		DAOUser user = userRepository.findByUsername(username);
+		User user = userRepository.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("Usuario não encontrado: " + username);
 		}

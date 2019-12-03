@@ -1,6 +1,7 @@
 package br.com.maccommerce.authservice.entity;
 
 public class UserDTO {
+
 	private String username;
 	private String password;
 

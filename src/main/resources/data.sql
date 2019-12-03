@@ -1,3 +1,0 @@
-INSERT INTO roles (id, role) VALUES (1001,'ADMINISTRADOR');
-INSERT INTO roles (id, role) VALUES (1002,'VENDEDOR');
-INSERT INTO roles (id, role) VALUES (1003,'CLIENTE');
